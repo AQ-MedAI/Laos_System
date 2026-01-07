@@ -1,0 +1,42 @@
+# Task & IO
+task: admission
+io:
+  patient_json: data/inputs/patient_001.json
+  out_dir: outputs
+
+# Optional ASR via FunASR Paraformer
+asr:
+  provider: funasr            # funasr | whisper | none
+  model: paraformer-zh        # can be a local model directory/path
+  device: auto
+  audio_path: null            # if provided (e.g., data/inputs/patient_001.wav), auto-transcribe and append
+  params: {}
+
+# Search (unified search tool; leave empty if you have no service)
+search:
+  base_url: null
+  api_key: null
+  task: admission
+  top_k: 5
+  params: {}
+
+# Clinician review comments
+doctor_feedback:
+  text: ""
+  file: ""  # you can also provide a file input
+
+# LLM (supports Qwen/LLaMA/OpenAI/HF pipeline)
+llm:
+  provider: hf_causal         # openai | hf_textgen | hf_causal
+  model: Qwen2-7B-Instruct    # or Meta-Llama-3-8B-Instruct / local path
+  temperature: 0.1
+  top_p: 0.9
+  top_k: 40
+  max_tokens: 1024
+  device: auto                # auto | cpu | cuda | cuda:0
+  dtype: auto                 # auto | float16 | bfloat16 | float32
+  chat_template: null         # customize if needed
+
+# Logging
+logging:
+  level: INFO
